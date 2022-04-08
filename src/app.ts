@@ -17,4 +17,4 @@ app.use(scopePerRequest(container))
 
 app.use(loadControllers('Controller/*.ts', { cwd: __dirname }))
 
-app.listen(3000)
+app.listen(8000)
