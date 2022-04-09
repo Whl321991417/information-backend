@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser'
 import { asClass, createContainer } from 'awilix'
 import { loadControllers, scopePerRequest } from 'awilix-express'
-import { UserService } from './Services/userService'
+import { UserService } from './Services/UserService'
 
 
 const app = express()

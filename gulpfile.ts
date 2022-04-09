@@ -6,7 +6,7 @@ const replace = require('@rollup/plugin-replace');
 //清洗环境
 function buildconfig() {
     return gulp
-        .src('./dist/app.js')
+        .src('./dist/**/*.js')
         .pipe(
             rollup({
                 input: './dist/app.js',
