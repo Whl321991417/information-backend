@@ -2,8 +2,10 @@
 
 import beforeRequest from '../middleware/beforeRequest'
 import { route, GET, POST, before } from 'awilix-express' // or `awilix-router-core`
-import { UserService } from '../Services/userService'
-
+import { UserService } from '../services/UserService'
+/**
+ * 
+ */
 @route('/api')
 export default class UserController {
     userService: UserService
@@ -22,10 +24,5 @@ export default class UserController {
             list: "result"
         }
         res.send(data)
-    }
-    @route('/login')
-    @POST()
-    async createUser(req, res) {
-        res.send(await this.userService.create(req.body))
     }
 }
