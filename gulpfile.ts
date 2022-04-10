@@ -9,7 +9,7 @@ function buildconfig() {
         .src('./dist/**/*.js')
         .pipe(
             rollup({
-                input: './dist/app.js',
+                input: ['./dist/app.js', './dist/DB/config.js'],
                 output: {
                     format: 'cjs',
                 },
