@@ -17,11 +17,11 @@ export default class UserController {
     @GET()
     @before([beforeRequest()])
     async getUser(req, res) {
-        // const result = await this.userService.getUserInfo(req.query)
+        const result = await this.userService.getUserInfo()
         let data = {
             msg: '获取学生列表成功',
             statuscode: 0,
-            list: "result"
+            list: result
         }
         res.send(data)
     }

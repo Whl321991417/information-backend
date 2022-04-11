@@ -1,12 +1,11 @@
-import getConfig from './config'
-const config = getConfig()
+
 const mysql = require('mysql');
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
-    port: config.port,
-    user: config.userName,
-    password: config.password,
+    host: '175.178.0.47',
+    port: 3306,
+    user: 'wanghaole',
+    password: 'wanghaole',
     database: 'campusinfo'
 });
 
