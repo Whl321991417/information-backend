@@ -1,8 +1,8 @@
 
 export enum DormitoryType {
-    AREA = "area",
-    APARTMENT = "apartment",
-    ROOM = "room"
+    AREA = "area",//区域
+    APARTMENT = "apartment",//公寓楼
+    ROOM = "room" //宿舍
 }
 /**
  * 宿舍信息
