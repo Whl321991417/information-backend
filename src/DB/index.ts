@@ -1,5 +1,5 @@
 
-const mysql = require('mysql');
+import mysql from 'mysql';
 const pool = mysql.createPool({
     connectionLimit: 10,
     host: '175.178.0.47',

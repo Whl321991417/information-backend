@@ -5,8 +5,9 @@ export class LoginService {
     login(params: UserInfo) {
         return new Promise((reslove, reject) => {
             db.query('select * from usersinfo where username=? and upwd =?', [params.username, params.upwd], (err, results) => {
-                if (err) return console.log('出错啦~！')
-
+                if (err) {
+                    reject(err)
+                }
                 if (results.length > 0) {
                     const usrData = results[0]
                     const jwt = require('jsonwebtoken');

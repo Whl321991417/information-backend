@@ -1,11 +1,10 @@
 
 
-import beforeRequest from '../middleware/beforeRequest'
+
 import { route, GET, POST, before } from 'awilix-express' // or `awilix-router-core`
+import { Response } from '../models/Response'
 import { LoginService } from '../services/LoginService'
-/**
- * 用户登录
- */
+
 @route('/api')
 export default class LoginController {
 
@@ -13,17 +12,34 @@ export default class LoginController {
         this.loginService = loginService
     }
     public loginService: LoginService
-
+    
+    /**
+     * POST /api/login
+     * @summary 登录接口
+     * @tags 登录
+     * @param {Login} request.body.required - song info
+     * @return {object} 200 - song response
+     * @return {object} 400 - Bad request response
+     */
     @route('/login')
     @POST()
     async login(req, res) {
-        const token = await this.loginService.login(req.body)
-        let data = {
-            msg: '获取学生列表成功',
-            statuscode: 0,
-            token: token
+        let data: Response
+        try {
+            const token = await this.loginService.login(req.body)
+            data = {
+                msg: '获取学生列表成功',
+                code: "0",
+                data: token
+            }
+            res.send(data)
+        } catch (error) {
+            res.send({
+                msg: error,
+                code: "1"
+            })
         }
-        res.send(data)
+
     }
 
 }
