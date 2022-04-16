@@ -5,15 +5,14 @@ import { asClass, createContainer } from 'awilix'
 import { loadControllers, scopePerRequest } from 'awilix-express'
 import { UserService } from './services/UserService'
 import { LoginService } from './services/LoginService'
-
+import cors from 'cors'
 const app = express()
 const container = createContainer()
     .register({
         userService: asClass(UserService),
         loginService: asClass(LoginService)
     })
-
-
+app.use(cors()) // 通过中间件的方式使用cors插件 解决跨域问题
 app.use(bodyParser.json())
 app.use(scopePerRequest(container))
 const jwt = require('express-jwt');
