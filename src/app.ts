@@ -23,14 +23,9 @@ app.use(scopePerRequest(container))
 // 使用swagger API 文档
 swagger(app)
 
-app.use(jwt({ secret: 'abc_dx_1008', algorithms: ['HS256'] }).unless({ path: ['/api/login','/swagger'] }))
-let controllerUrl;
-if (process.env.NODE_ENV == 'production') {
-    controllerUrl = 'controllers/*.js'
-} else {
-    controllerUrl = 'controllers/*.ts'
-}
-app.use(loadControllers(controllerUrl, { cwd: __dirname }))
+app.use(jwt({ secret: 'abc_dx_1008', algorithms: ['HS256'] }).unless({ path: ['/api/login', '/swagger'] }))
+ 
+app.use(loadControllers('controllers/*.ts', { cwd: __dirname }))
 app.listen(8000, () => {
     console.log("启动成功：8000");
 })

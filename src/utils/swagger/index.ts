@@ -19,7 +19,8 @@ const options = {
     filesPattern: ['../../controllers/*.ts','../../models/*.ts','../../services/*.ts'],
     // URL where SwaggerUI will be rendered
     swaggerUIPath: '/swagger',
-   
+    apiDocsPath: '/api-docs',
+    exposeApiDocs:true,
 };
 export function swagger(app) {
     expressJSDocSwagger(app)(options);
