@@ -1,6 +1,6 @@
 
 import { route, GET, POST, DELETE, } from 'awilix-express'
-import { DormitoryType } from '../models/Dormitory'
+import { Dormitory, DormitoryType } from '../models/Dormitory'
 import { Response } from '../models/Response'
 import { DormitoryService } from '../services/DormitoryService'
 
@@ -38,6 +38,7 @@ export default class DormitoryController {
     * @tags 宿舍管理
     * @security BearerAuth
     * @param {string} name.query - name 宿舍名称
+    * @param {string} pid.query - pid id
     * @return {object} 200 - song response
     * @example response - 200 - example success response
     * [
@@ -54,15 +55,26 @@ export default class DormitoryController {
     @GET()
     async getDormitory(req, res) {
         const result: any[] = []
+        const queryData: Dormitory = req.query
+        if (Object.keys(queryData).length > 0) {
+            const areaList = await this.dormitoryService.getList({
+                ...queryData
+            })
+            const data: Response = {
+                msg: '查询宿舍成功',
+                code: "0",
+                data: areaList
+            }
+            res.send(data)
+            return
+        }
         const areaList = await this.dormitoryService.getList({
-            name: req.query.name,
             type: DormitoryType.AREA
         })
         result.push(...(areaList as any))
         for (let index = 0; index < result.length; index++) {
             const area = result[index];
             const apartmentList = await this.dormitoryService.getList({
-                name: req.query.name,
                 pid: area.id
             })
             area.children = apartmentList
