@@ -21,8 +21,9 @@ app.use(cors()) // 通过中间件的方式使用cors插件 解决跨域问题
 app.use(bodyParser.json())
 app.use(scopePerRequest(container))
 // 使用swagger API 文档
-swagger(app)
-
+if (process.env.NODE_ENV !== 'production') {
+    swagger(app)
+}
 app.use(jwt({ secret: 'abc_dx_1008', algorithms: ['HS256'] }).unless({ path: ['/api/login', '/swagger'] }))
  
 app.use(loadControllers('controllers/*.ts', { cwd: __dirname }))

@@ -3,7 +3,7 @@ const babel = require('gulp-babel');
 const ts = require('gulp-typescript');
 const rollup = require('gulp-rollup');
 const replace = require('gulp-replace');
-
+const rollupReplace = require('@rollup/plugin-replace');
 const uglify = require('gulp-uglify');
 
 var through = require('through2');
@@ -27,7 +27,18 @@ function preprocess() {
 function buildconfig() {
     return gulp
         .src('./dist/**/*.js')
-        .pipe(replace('.ts','.js'))
+        .pipe(replace('.ts', '.js'))
+        .pipe(
+            rollup({
+                input: ['./dist/app.js'],
+                output: {
+                    format: 'cjs',
+                },
+                plugins: [
+                    rollupReplace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+                ],
+            })
+        )
         .pipe(uglify())
         .pipe(gulp.dest('./dist'));
 }
