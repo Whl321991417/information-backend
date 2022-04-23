@@ -24,6 +24,15 @@ export default class DormitoryController {
     @route('/dormitory')
     @POST()
     async createDormitory(req, res) {
+        if (!req.body.name) {
+            const data: Response = {
+                msg: '名称不能为空',
+                code: "1",
+                data: ''
+            }
+            res.send(data)
+            return
+        }
         await this.dormitoryService.create(req.body)
         const data: Response = {
             msg: '新增宿舍成功',

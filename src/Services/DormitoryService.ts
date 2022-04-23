@@ -4,6 +4,7 @@ import { Dormitory } from '../models/Dormitory';
 export class DormitoryService {
     async create(body: Dormitory) {
         const params: Dormitory = { ...body }
+        params.manager = body.manager || '';
         params.id = uuidv4();
         return await createDormitory(params)
     }
