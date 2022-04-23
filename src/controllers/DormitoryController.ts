@@ -66,9 +66,17 @@ export default class DormitoryController {
         const result: any[] = []
         const queryData: Dormitory = req.query
         if (Object.keys(queryData).length > 0) {
-            const areaList = await this.dormitoryService.getList({
-                ...queryData
-            })
+            let areaList: any = []
+            if (queryData.name && queryData.pid) {
+                areaList = await this.dormitoryService.getListByName({
+                    ...queryData
+                }) 
+            } else {
+                areaList = await this.dormitoryService.getList({
+                    ...queryData
+                })
+            }
+
             const data: Response = {
                 msg: '查询宿舍成功',
                 code: "0",

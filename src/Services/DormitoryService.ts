@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createDormitory, queryDormitory, updateDormitoryById } from '../DB/sqls'
+import { createDormitory, queryDormitory, queryDormitoryByName, updateDormitoryById } from '../DB/sqls'
 import { Dormitory } from '../models/Dormitory';
 export class DormitoryService {
     async create(body: Dormitory) {
@@ -11,7 +11,9 @@ export class DormitoryService {
     async getList(params?: any) {
         return await queryDormitory(params)
     }
-
+    async getListByName(params?: any) {
+        return await queryDormitoryByName(params)
+    }
     async updateDormitorybyId(id: string, params: any) {
         return await updateDormitoryById(id, params)
     }

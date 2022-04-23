@@ -39,9 +39,23 @@ export async function queryDormitory(params: any) {
         }
     })
     let sql = 'SELECT * from `dormitory` where is_delete = 1 ' + searchOptions
-   
+
     return new Promise((reslove, reject) => {
         db.query(sql, values, (err, results) => {
+            if (err) {
+                reject(err)
+            } else {
+                reslove(results)
+            }
+        })
+    })
+}
+export async function queryDormitoryByName(params: any) { 
+    const { pid, name } = params
+    let sql = 'SELECT * from `dormitory` where is_delete = 1 and pid = ? and name like "%' + name + '%"'
+    
+    return new Promise((reslove, reject) => {
+        db.query(sql, [pid], (err, results) => {
             if (err) {
                 reject(err)
             } else {
