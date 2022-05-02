@@ -18,7 +18,7 @@ export default class dataController {
         const result = await this.yiqingService.getdataInfo()
         let data = {
             msg: '获取疫情数据成功',
-            statuscode: 0,
+            code: '0',
             list: result
         }
         res.send(data)

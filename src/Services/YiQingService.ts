@@ -10,7 +10,6 @@ export class YiQingService {
                 method: "POST",
                 json: true
             }, function (error, response, body) {
-                console.log(JSON.stringify(body.data));
                 reslove(body.data)
             });
         })

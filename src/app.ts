@@ -10,14 +10,17 @@ import { DormitoryService } from './services/DormitoryService';
 import { swagger } from './utils/swagger';
 import jwt from 'express-jwt';
 import { YiQingService } from './services/YiQingService';
-
+import { StudentsInfService } from './Services/StudentsInfService';
+import { VaccineInfoService } from './Services/VaccineInfService';
 const app = express()
 const container = createContainer()
     .register({
         userService: asClass(UserService),
         loginService: asClass(LoginService),
         dormitoryService: asClass(DormitoryService),
-        yiqingService: asClass(YiQingService)
+        yiqingService: asClass(YiQingService),
+        studentsinfService: asClass(StudentsInfService),
+        vaccineinfoService: asClass(VaccineInfoService)
     })
 app.use(cors()) // 通过中间件的方式使用cors插件 解决跨域问题
 app.use(bodyParser.json())
@@ -26,7 +29,7 @@ app.use(scopePerRequest(container))
 if (process.env.NODE_ENV !== 'production') {
     swagger(app)
 }
-app.use(jwt({ secret: 'abc_dx_1008', algorithms: ['HS256'] }).unless({ path: ['/api/login', '/swagger', '/api/yiqing'] }))
+app.use(jwt({ secret: 'abcd_whl_123', algorithms: ['HS256'] }).unless({ path: ['/api/login', '/swagger', '/api/yiqing'] }))
 
 app.use(loadControllers('controllers/*.ts', { cwd: __dirname }))
 app.listen(8000, () => {
