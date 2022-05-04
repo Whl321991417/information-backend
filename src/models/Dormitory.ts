@@ -20,6 +20,7 @@ export interface Dormitory {
     pid: string;
 }
 
+
 /**
  * 修改接口所接受的参数
  * @typedef {object} Update

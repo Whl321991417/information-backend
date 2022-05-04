@@ -70,7 +70,7 @@ export default class DormitoryController {
             if (queryData.name && queryData.pid) {
                 areaList = await this.dormitoryService.getListByName({
                     ...queryData
-                }) 
+                })
             } else {
                 areaList = await this.dormitoryService.getList({
                     ...queryData

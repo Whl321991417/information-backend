@@ -1,5 +1,6 @@
 import db from '.'
 import { Dormitory } from '../models/Dormitory'
+import { Students } from '../models/Students'
 export async function createDormitory(params: Dormitory) {
     return new Promise((reslove, reject) => {
         db.query(
@@ -50,10 +51,10 @@ export async function queryDormitory(params: any) {
         })
     })
 }
-export async function queryDormitoryByName(params: any) { 
+export async function queryDormitoryByName(params: any) {
     const { pid, name } = params
     let sql = 'SELECT * from `dormitory` where is_delete = 1 and pid = ? and name like "%' + name + '%"'
-    
+
     return new Promise((reslove, reject) => {
         db.query(sql, [pid], (err, results) => {
             if (err) {
@@ -62,5 +63,37 @@ export async function queryDormitoryByName(params: any) {
                 reslove(results)
             }
         })
+    })
+}
+//添加学生信息
+export async function createStudentInf(params: Students) {
+    return new Promise((reslove, reject) => {
+        db.query(
+            'INSERT INTO `studentinfo` (`stunum`, `name`, `sex`, `birthday`, `room`, `phone`, `college`, `classroom`) VALUES(?, ?, ?, ?, ?, ?, ?, ?);',
+            [params.stunum, params.name, params.sex, params.birthday, params.room, params.phone, params.college, params.classroom],
+            (err, results) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    reslove(results)
+                }
+            })
+    })
+
+}
+//删除学生信息
+
+export async function deleteStudentByStunum(stunum: string) {
+    return new Promise((reslove, reject) => {
+        db.query(
+            'DELETE FROM `usersinfo` WHERE stunum=?',
+            [stunum],
+            (err, results) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    reslove(results)
+                }
+            })
     })
 }
