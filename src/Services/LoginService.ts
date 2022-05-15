@@ -13,9 +13,8 @@ export class LoginService {
                     const usrData = results[0]
                     const usr2 = { ...usrData, upwd: null }
                     const token = jwt.sign({ data: usr2 }, 'abcd_whl_123', { expiresIn: 60 * 24 * 60 })
-                    reslove(token)
+                    reslove([token, results])
                 }
-
             })
         })
     }

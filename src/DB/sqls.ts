@@ -1,6 +1,7 @@
 import db from '.'
 import { Dormitory } from '../models/Dormitory'
 import { Students } from '../models/Students'
+import { vaccineinf } from '../models/VaccineInf'
 export async function createDormitory(params: Dormitory) {
     return new Promise((reslove, reject) => {
         db.query(
@@ -86,7 +87,39 @@ export async function createStudentInf(params: Students) {
 export async function deleteStudentByStunum(stunum: string) {
     return new Promise((reslove, reject) => {
         db.query(
-            'DELETE FROM `usersinfo` WHERE stunum=?',
+            'DELETE FROM `studentinfo` WHERE stunum=?',
+            [stunum],
+            (err, results) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    reslove(results)
+                }
+            })
+    })
+}
+//新增疫苗信息
+export async function createVaccineInf(params: vaccineinf) {
+    return new Promise((reslove, reject) => {
+        db.query(
+            'INSERT INTO `vaccineinf` (`stunum`, `date`,`type`,`heal`) VALUES(?, ?, ?, ?);',
+            [params.stunum, params.date, params.type, params.heal],
+            (err, results) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    reslove(results)
+                }
+            })
+    })
+
+}
+//删除疫苗信息
+
+export async function deleteVaccineByStunum(stunum: string) {
+    return new Promise((reslove, reject) => {
+        db.query(
+            'DELETE FROM `vaccineinf` WHERE stunum=?',
             [stunum],
             (err, results) => {
                 if (err) {

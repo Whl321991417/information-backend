@@ -28,8 +28,8 @@ export default class StuInfController {
     //增加学生信息
     @route('/stulist')
     @POST()
-    async createDormitory(req, res) {
-        if (!req.body.name) {
+    async createStudents(req, res) {
+        if (!req.body.stunum) {
             const data: Response = {
                 msg: '名称不能为空',
                 code: "1",
@@ -49,9 +49,9 @@ export default class StuInfController {
     //删除学生信息
     @route('/stulist/:stunum')
     @DELETE()
-    async deleteDormitorybyId(req, res) {
-        const id = req.params.id
-        await this.StudentsInfService.deleteDormitorybyId(id)
+    async deleteStudentByStunum(req, res) {
+        const stunum = req.params.stunum
+        await this.studentsinfService.deleteStudentByStunum(stunum)
         const data: Response = {
             msg: '删除成功',
             code: "0"

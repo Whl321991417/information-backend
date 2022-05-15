@@ -12,7 +12,7 @@ export default class LoginController {
         this.loginService = loginService
     }
     public loginService: LoginService
-    
+
     /**
      * POST /api/login
      * @summary 登录接口
@@ -28,7 +28,7 @@ export default class LoginController {
         try {
             const token = await this.loginService.login(req.body)
             data = {
-                msg: '获取学生列表成功',
+                msg: '登录校验通过',
                 code: "0",
                 data: token
             }

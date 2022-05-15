@@ -17,12 +17,40 @@ export default class UserController {
     @GET()
     @before([beforeRequest()])
     async getUser(req, res) {
-        const result = await this.userService.getUserInfo()
+        let result: any = await this.userService.getUserInfo()
         let data = {
-            msg: '获取学生列表成功',
+            msg: '验证管理员成功',
             statuscode: 0,
-            list: result
+            list: result[0],
+            user: result[1]
         }
         res.send(data)
     }
+    @route('/updatelist')
+    @GET()
+    @before([beforeRequest()])
+    async setUser(req, res) {
+        let result: any = await this.userService.setUserInf(req.body.params, req.body.username)
+        let data = {
+            msg: '修改管理员信息成功',
+            statuscode: 0,
+            list: result[0],
+            user: result[1]
+        }
+        res.send(data)
+    }
+    @route('/list')
+    @POST()
+    @before([beforeRequest()])
+    async creatUser(req, res) {
+        let result: any = await this.userService.creatUserInfo(req.body)
+        let data = {
+            msg: '验证管理员成功',
+            statuscode: 0,
+            list: result[0],
+            user: result[1]
+        }
+        res.send(data)
+    }
+
 }
