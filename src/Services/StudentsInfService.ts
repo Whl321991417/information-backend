@@ -1,5 +1,5 @@
 import db from '../DB/index'
-import { createStudentInf, deleteStudentByStunum } from '../DB/sqls'
+import { createStudentInf, deleteStudentByStunum, updateStudentInfo } from '../DB/sqls'
 import { Students } from '../models/Students'
 export class StudentsInfService {
     getStudentsInfo(params?: any) {
@@ -25,4 +25,9 @@ export class StudentsInfService {
     async deleteStudentByStunum(stunum: string) {
         return await deleteStudentByStunum(stunum)
     }
+    // 修改
+    async update(params: Students) {
+        return await updateStudentInfo(params)
+    }
+
 }

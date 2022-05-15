@@ -2,9 +2,8 @@ import beforeRequest from '../middleware/beforeRequest'
 import { route, GET, POST, before, DELETE } from 'awilix-express' // or `awilix-router-core`
 import { StudentsInfService } from '../services/StudentsInfService'
 import { Response } from '../models/Response'
-/**
- * 
- */
+import { Students } from '../models/Students'
+
 @route('/api')
 export default class StuInfController {
     studentsinfService: StudentsInfService
@@ -58,6 +57,34 @@ export default class StuInfController {
         }
         res.send(data)
     }
-    //修改学生信息
-
+    /**
+    * POST /api/student
+    * @summary 修改学生信息
+    * @tags 学生信息管理
+    * @security BearerAuth
+    * @param {Students} request.body.required - body info
+    * @return {object} 200 - song response
+    * @return {object} 400 - Bad request response
+    */
+    @route('/student')
+    @POST()
+    async updateStudents(req, res) {
+        const body: Students = req.body;
+        if (!body.stunum || !body.name) {
+            const data: Response = {
+                msg: '学号不能为空',
+                code: "1",
+                data: ''
+            }
+            res.send(data)
+            return
+        }
+        await this.studentsinfService.update(body)
+        const data: Response = {
+            msg: '修改学生信息成功',
+            code: "0",
+            data: ''
+        }
+        res.send(data)
+    }
 }

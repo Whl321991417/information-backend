@@ -98,6 +98,20 @@ export async function deleteStudentByStunum(stunum: string) {
             })
     })
 }
+export async function updateStudentInfo(params: Students) {
+    return new Promise((reslove, reject) => {
+        db.query(
+            'UPDATE `studentinfo` SET ? where stunum=?',
+            [params, params.stunum],
+            (err, results) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    reslove(results)
+                }
+            })
+    })
+}
 //新增疫苗信息
 export async function createVaccineInf(params: vaccineinf) {
     return new Promise((reslove, reject) => {
